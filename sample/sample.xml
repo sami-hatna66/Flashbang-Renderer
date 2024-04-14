@@ -1,0 +1,134 @@
+<scene id="scene">
+    <camera type="perspective" id="camera">
+        <integer name="width" value="480"/>
+        <integer name="height" value="480"/>
+
+        <string name="fovAxis" value="x"/>
+        <float name="fov" value="40"/>
+
+        <transform>
+            <translate z="-4"/>
+        </transform>
+    </camera>
+
+    <bsdf type="principled" id="wall material">
+        <texture name="baseColor" type="constant" value="1"/>
+        <texture name="specular" type="constant" value="1"/>
+        <texture name="metallic" type="constant" value="1"/>
+        <texture name="roughness" type="constant" value="0.5"/>
+    </bsdf>
+
+    <instance id="back">
+        <shape type="rectangle"/>
+        <transform>
+            <scale z="-1"/>
+            <translate z="1"/>
+        </transform>
+
+        <bsdf type="diffuse">
+            <texture name="albedo" type="checkerboard" scale="16,16" color0="0.08,0.25,0.70" color1="0.9" />
+        </bsdf>
+    </instance>
+
+    <instance id="floor">
+        <shape type="rectangle"/>
+        <transform>
+            <rotate axis="1,0,0" angle="90"/>
+            <translate y="1"/>
+        </transform>
+
+        <bsdf type="diffuse">
+            <texture name="albedo" type="checkerboard" scale="16,16" color0="0.08,0.25,0.70" color1="0.9" />
+        </bsdf>
+    </instance>
+
+    <instance id="ceiling">
+        <shape type="rectangle"/>
+        <ref id="wall material"/>
+        <transform>
+            <rotate axis="1,0,0" angle="-90"/>
+            <translate y="-1"/>
+        </transform>
+    </instance>
+
+    <instance id="left wall">
+        <shape type="rectangle"/>
+        <bsdf type="principled">
+            <texture name="baseColor" type="constant" value="0.9,0,0"/>
+            <texture name="specular" type="constant" value="0.2"/>
+            <texture name="metallic" type="constant" value="0"/>
+            <texture name="roughness" type="constant" value="0.2"/>
+        </bsdf>
+        <transform>
+            <rotate axis="0,1,0" angle="90"/>
+            <translate x="-1"/>
+        </transform>
+    </instance>
+
+    <instance id="right wall">
+        <shape type="rectangle"/>
+        <bsdf type="principled">
+            <texture name="baseColor" type="constant" value="0,0.9,0"/>
+            <texture name="specular" type="constant" value="0.2"/>
+            <texture name="metallic" type="constant" value="0"/>
+            <texture name="roughness" type="constant" value="0.2"/>
+        </bsdf>
+        <transform>
+            <rotate axis="0,1,0" angle="-90"/>
+            <translate x="1"/>
+        </transform>
+    </instance>
+
+    <instance id="lamp">
+        <shape type="rectangle"/>
+        <emission type="lambertian">
+            <texture name="emission" type="constant" value="2"/>
+        </emission>
+        <transform>
+            <scale value="0.9"/>
+            <rotate axis="1,0,0" angle="-90"/>
+            <translate y="-0.98"/>
+        </transform>
+    </instance>
+
+    <instance>
+        <shape type="mesh" filename="bunny.ply"/>
+        <bsdf type="principled">
+            <texture name="baseColor" type="constant" value="1"/>
+            <texture name="specular" type="constant" value="1"/>
+            <texture name="metallic" type="constant" value="1"/>
+            <texture name="roughness" type="constant" value="0.1"/>
+        </bsdf>
+        <transform>
+            <scale value="0.8"/>
+            <rotate axis="1,0,0" angle="90"/>
+            <translate x="0.18" y="1.03"/>
+        </transform>
+    </instance>
+</scene>
+<sampler type="halton" count="256"/>
+
+<integrator type="pathtracer" depth="6">
+    <ref id="scene"/>
+    <image id="noisy"/>
+    <sampler type="halton" count="64"/>
+</integrator>
+
+<integrator type="normals">
+    <ref id="scene"/>
+    <image id="normals"/>
+    <sampler type="halton" count="64"/>
+</integrator>
+
+<integrator type="albedo">
+    <ref id="scene"/>
+    <image id="albedo"/>
+    <sampler type="halton" count="64"/>
+</integrator>
+
+<postprocess type="denoising">
+    <ref name="input" id="noisy"/>
+    <ref name="normals" id="normals"/>
+    <ref name="albedo" id="albedo"/>
+    <image id="denoised"/>
+</postprocess>

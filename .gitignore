@@ -1,0 +1,7 @@
+build/
+.vscode/
+*.gch
+*.out
+.DS_Store
+tests/
+run_tests.py
