@@ -38,10 +38,6 @@ public:
         Vector direction = squareToUniformSphere(rng.next2D());
         auto E           = evaluate(direction);
 
-        // implement better importance sampling here, if you ever need it
-        // (useful for environment maps with bright tiny light sources, like the
-        // sun for example)
-
         return {
             .wi     = direction,
             .weight = E.value / Inv4Pi,

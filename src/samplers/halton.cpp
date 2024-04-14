@@ -6,6 +6,7 @@
 
 namespace lightwave {
 
+// Halton sampling explained: https://pbr-book.org/3ed-2018/Sampling_and_Reconstruction/The_Halton_Sampler
 class Halton : public Sampler {
 private:
     int m_prime_index;

@@ -20,7 +20,7 @@ Flashbang is a physically-based renderer built on the Lightwave framework. It wa
 - Alpha masking
 - Shading normals
 
-Visit https://sami-hatna66.github.io/flashbang-showcase/ to see a complex scene rendered with Flashbang which showcases and provides details about many of these features.
+Visit https://sami-hatna66.github.io/flashbang-showcase/ to see a complex scene rendered with Flashbang which showcases many of these features.
 
 ## Usage
 

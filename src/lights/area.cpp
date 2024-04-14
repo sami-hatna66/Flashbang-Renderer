@@ -2,6 +2,9 @@
 
 namespace lightwave {
 
+/**
+ * Sample a light at each intersection, in proportion to the light's size
+*/
 class AreaLight final : public Light {
 private:
     ref<Instance> m_instance;

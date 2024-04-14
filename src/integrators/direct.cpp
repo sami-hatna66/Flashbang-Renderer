@@ -12,6 +12,7 @@ public:
         if (its) {
             if (its.instance->emission()) return its.evaluateEmission();
 
+            // next-event estimation
             Color light_weight(0.f);
             if (m_scene->hasLights()) {
                 auto light = m_scene->sampleLight(rng);
