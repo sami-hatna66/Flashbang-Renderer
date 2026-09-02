@@ -1,6 +1,6 @@
 # Flashbang Renderer
 
-Flashbang is a physically-based renderer built on the Lightwave framework. It was implemented over the course of the [CG1](https://graphics.cg.uni-saarland.de) computer graphics course.
+Flashbang is a physically-based renderer built on the Lightwave framework.
 
 <p align="center">
 <img width="400" alt="example flashbang scene" src="./sample/readme_img.jpg">
